@@ -1,18 +1,4 @@
-import numpy as np
-
-def calculate_body_and_shadow(tickerData):
-    """Calculate the body size and the upper and lower shadow sizes."""
-    tickerData['Body'] = abs(tickerData['Open'] - tickerData['Close'])
-    tickerData['Lower Shadow'] = tickerData[['Open', 'Close']].min(axis=1) - tickerData['Low']
-    tickerData['Upper Shadow'] = tickerData['High'] - tickerData[['Open', 'Close']].max(axis=1)
-    return tickerData
-
-
-def calculate_distance(x):
-    """Calculate maximum absolute percentage difference between actual and predicted closing prices."""
-    a, b = np.polyfit(np.arange(len(x)), x, 1)
-    y = a * np.arange(len(x)) + b
-    return max(abs((x - y) / x))
+import utils
 
 def identify_hanging_man(tickerData):
     """Identify Hanging Man pattern."""
@@ -22,12 +8,15 @@ def identify_hanging_man(tickerData):
     # Check if current candle's close is higher than all previous 12 candles
     tickerData['Higher Close'] = tickerData['Close'].rolling(window=13).apply(lambda x: x[-1] > max(x[:-1]))
 
+    # Check if current candle's open is higher than all previous 12 candles
+    tickerData['Higher Open'] = tickerData['Open'].rolling(window=13).apply(lambda x: x[-1] > max(x[:-1]))
+
     # Calculate slope of line between the first and the last candle in window, then ensure it's positive
     tickerData['Slope'] = tickerData['Close'].rolling(window=13).apply(lambda x: (x[-1] - x[0])/12)
     slope_condition = tickerData['Slope'] > 0
 
     # Check that close of all interim candles is not too far from the line
-    tickerData['Close Distance'] = tickerData['Close'].rolling(window=13).apply(calculate_distance)
+    tickerData['Close Distance'] = tickerData['Close'].rolling(window=13).apply(utils.calculate_distance)
     close_distance_condition = tickerData['Close Distance'] <= 0.01
 
     # Check if body size isn't too small (at least 10% of the candle size)

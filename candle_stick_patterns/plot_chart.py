@@ -13,11 +13,14 @@ def plot_chart(tickerData, selected_pattern=None):
                                  decreasing_line_color='black',
                                  name='Price'))
 
-    # Add pattern markers
-    patterns = ['Bullish Hammer', 'Hanging Man', 'Bullish Full Marubozu', 'Bullish Open Marubozu', 'Bullish Close Marubozu', 
-                'Bearish Full Marubozu', 'Bearish Open Marubozu', 'Bearish Close Marubozu', 'Bullish Engulfing']
-    
-    symbols = ['star', 'x', 'circle', 'cross', 'diamond', 'square', 'triangle-up', 'triangle-down', 'pentagon']
+# Add pattern markers
+    patterns = ['Hammer', 'Hanging Man', 'Bullish Full Marubozu', 'Bullish Open Marubozu', 'Bullish Close Marubozu', 
+            'Bearish Full Marubozu', 'Bearish Open Marubozu', 'Bearish Close Marubozu', 'Bullish Engulfing', 
+            'Bearish Engulfing', 'Inverted Hammer', 'Piercing Line']
+            # , 'Bullish Hammer']  # Added 'Bullish Hammer'
+
+    symbols = ['star', 'x', 'circle', 'cross', 'diamond', 'square', 'triangle-up', 'triangle-down', 'pentagon', 'hexagon', 'y-up', 'y-down']
+    # , 'hash']  # Added a symbol for 'Bullish Hammer'
 
     for pattern, symbol in zip(patterns, symbols):
         if "Bearish" in pattern:
@@ -39,11 +42,12 @@ def plot_chart(tickerData, selected_pattern=None):
         title='NIFTY index - last 120 days',
         yaxis_title='Price',
         xaxis_title='Date',
-        xaxis_rangeslider_visible=False,
         xaxis=dict(
+            rangeslider=dict(visible=False),
             type='category'   # this line will remove the gaps for non-trading days
         ),
     )
+
 
     # Show the figure
     fig.show()

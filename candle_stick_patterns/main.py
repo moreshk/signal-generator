@@ -1,24 +1,29 @@
 from datetime import datetime, timedelta
 import yfinance as yf
 import pandas as pd
-from bullish_hammer import calculate_body_and_shadow as calc_bh, identify_bullish_hammer
-from hanging_man import calculate_body_and_shadow as calc_hm, identify_hanging_man
+from hammer import identify_hammer
+from hanging_man import identify_hanging_man
+from utils import calculate_body_and_shadow
 from plot_chart import plot_chart
 from marubozu import identify_marubozu
 from bullish_engulfing import identify_bullish_engulfing
+from bearish_engulfing import identify_bearish_engulfing
+from inverted_hammer import identify_inverted_hammer
+from piercing_line import identify_piercing_line
+from bullish_hammer import identify_bullish_hammer
 import os
 
 # Define the ticker symbol
 tickerSymbol = '^NSEI'
 
-# Define the file name for storing the data
-fileName = f"{tickerSymbol}_data.csv"
-
 # Get today's date
 endDate = datetime.now()
 
-# Get the data for the past 360 days
-startDate = endDate - timedelta(days=360)
+# Get the data for the desired period
+startDate = endDate - timedelta(days=360)  # change to your desired period
+
+# Define the file name for storing the data
+fileName = f"{tickerSymbol}_data_{startDate.strftime('%Y%m%d')}_{endDate.strftime('%Y%m%d')}.csv"
 
 # Check if data is already downloaded
 if os.path.exists(fileName):
@@ -39,14 +44,17 @@ tickerData.index = pd.to_datetime(tickerData.index)
 tickerData.index = tickerData.index.strftime('%Y-%m-%d')
 
 # Calculate body and shadow
-tickerData = calc_bh(tickerData)
-tickerData = calc_hm(tickerData)
+tickerData = calculate_body_and_shadow(tickerData)
 
 # Identify patterns
-tickerData = identify_bullish_hammer(tickerData)
+tickerData = identify_hammer(tickerData)
 tickerData = identify_hanging_man(tickerData)
 tickerData = identify_marubozu(tickerData)
 tickerData = identify_bullish_engulfing(tickerData)
+tickerData = identify_bearish_engulfing(tickerData)
+tickerData = identify_inverted_hammer(tickerData)
+tickerData = identify_piercing_line(tickerData)
+tickerData = identify_bullish_hammer(tickerData)
 
 # Plot the chart
 plot_chart(tickerData)
