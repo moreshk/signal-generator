@@ -11,6 +11,9 @@ from bearish_engulfing import identify_bearish_engulfing
 from inverted_hammer import identify_inverted_hammer
 from piercing_line import identify_piercing_line
 from bullish_hammer import identify_bullish_hammer
+from bullish_harami import identify_bullish_harami
+from bearish_harami import identify_bearish_harami
+
 import os
 
 # Define the ticker symbol
@@ -20,7 +23,7 @@ tickerSymbol = '^NSEI'
 endDate = datetime.now()
 
 # Get the data for the desired period
-startDate = endDate - timedelta(days=360)  # change to your desired period
+startDate = endDate - timedelta(days=720)  # change to your desired period
 
 # Define the file name for storing the data
 fileName = f"{tickerSymbol}_data_{startDate.strftime('%Y%m%d')}_{endDate.strftime('%Y%m%d')}.csv"
@@ -55,6 +58,8 @@ tickerData = identify_bearish_engulfing(tickerData)
 tickerData = identify_inverted_hammer(tickerData)
 tickerData = identify_piercing_line(tickerData)
 tickerData = identify_bullish_hammer(tickerData)
+tickerData = identify_bullish_harami(tickerData)
+tickerData = identify_bearish_harami(tickerData)
 
 # Plot the chart
 plot_chart(tickerData)

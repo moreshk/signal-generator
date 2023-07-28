@@ -13,14 +13,13 @@ def plot_chart(tickerData, selected_pattern=None):
                                  decreasing_line_color='black',
                                  name='Price'))
 
-# Add pattern markers
+   # Add pattern markers
     patterns = ['Hammer', 'Hanging Man', 'Bullish Full Marubozu', 'Bullish Open Marubozu', 'Bullish Close Marubozu', 
-            'Bearish Full Marubozu', 'Bearish Open Marubozu', 'Bearish Close Marubozu', 'Bullish Engulfing', 
-            'Bearish Engulfing', 'Inverted Hammer', 'Piercing Line']
-            # , 'Bullish Hammer']  # Added 'Bullish Hammer'
+                'Bearish Full Marubozu', 'Bearish Open Marubozu', 'Bearish Close Marubozu', 'Bullish Engulfing', 
+                'Bearish Engulfing', 'Inverted Hammer', 'Piercing Line', 'Bullish Harami', 'Bearish Harami']  # Added 'Bearish Harami'
 
-    symbols = ['star', 'x', 'circle', 'cross', 'diamond', 'square', 'triangle-up', 'triangle-down', 'pentagon', 'hexagon', 'y-up', 'y-down']
-    # , 'hash']  # Added a symbol for 'Bullish Hammer'
+    symbols = ['star', 'x', 'circle', 'cross', 'diamond', 'square', 'triangle-up', 'triangle-down', 'pentagon', 'hexagon', 'y-up', 'y-down', 'octagon', 'star-diamond']  # Added 'star-diamond' for 'Bearish Harami'
+
 
     for pattern, symbol in zip(patterns, symbols):
         if "Bearish" in pattern:
