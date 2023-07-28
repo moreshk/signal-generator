@@ -13,7 +13,9 @@ from piercing_line import identify_piercing_line
 from bullish_hammer import identify_bullish_hammer
 from bullish_harami import identify_bullish_harami
 from bearish_harami import identify_bearish_harami
-
+from shooting_star import identify_shooting_star
+from morning_star import identify_morning_star
+from evening_star import identify_evening_star
 import os
 
 # Define the ticker symbol
@@ -60,6 +62,9 @@ tickerData = identify_piercing_line(tickerData)
 tickerData = identify_bullish_hammer(tickerData)
 tickerData = identify_bullish_harami(tickerData)
 tickerData = identify_bearish_harami(tickerData)
+tickerData = identify_shooting_star(tickerData)
+tickerData = identify_morning_star(tickerData)
+tickerData = identify_evening_star(tickerData)
 
 # Plot the chart
 plot_chart(tickerData)
