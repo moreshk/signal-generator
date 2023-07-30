@@ -83,8 +83,10 @@ data = {
 df = pd.DataFrame(data, index=['Daily', 'Weekly', 'Monthly'])
 
 # Apply the function to the 'Start Date Close' and 'End Date Open' columns
-df['Trend'] = df.apply(lambda row: calculate_trend(row['Start Date Close'], row['End Date Open']), axis=1)
+df['Trend'] = df.apply(lambda row: calculate_trend(row['Start Date Close'], row['End Date Close']), axis=1)
 
 df = df.round(2)
 
 print(df)
+
+#this is run before market starts

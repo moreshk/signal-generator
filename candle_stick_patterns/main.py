@@ -16,6 +16,10 @@ from bearish_harami import identify_bearish_harami
 from shooting_star import identify_shooting_star
 from morning_star import identify_morning_star
 from evening_star import identify_evening_star
+from uptrend_detector import identify_trendup
+from downtrend_detector import identify_trenddown
+from morning_doji_star import identify_morning_doji_star
+from evening_doji_star import identify_evening_doji_star
 import os
 
 # Define the ticker symbol
@@ -32,6 +36,7 @@ fileName = f"{tickerSymbol}_data_{startDate.strftime('%Y%m%d')}_{endDate.strftim
 
 # Check if data is already downloaded
 if os.path.exists(fileName):
+
     # Load data from CSV file
     tickerData = pd.read_csv(fileName, parse_dates=True, index_col='Date')
 else:
@@ -65,6 +70,9 @@ tickerData = identify_bearish_harami(tickerData)
 tickerData = identify_shooting_star(tickerData)
 tickerData = identify_morning_star(tickerData)
 tickerData = identify_evening_star(tickerData)
-
+tickerData = identify_trendup(tickerData)
+tickerData = identify_trenddown(tickerData)
+tickerData = identify_morning_doji_star(tickerData)
+tickerData = identify_evening_doji_star(tickerData)
 # Plot the chart
 plot_chart(tickerData)
