@@ -1,11 +1,5 @@
 import utils
 
-# def identify_uptrend(tickerData):
-#     """Identify an uptrend, where at least 3 out of the 5 prior candles are bullish."""
-#     bullish = [tickerData['Close'].shift(i) > tickerData['Open'].shift(i) for i in range(3, 8)]
-#     tickerData['Uptrend'] = sum(bullish) >= 3
-#     return tickerData
-
 def identify_evening_star(tickerData):
     """Identify Evening Star pattern."""
     tickerData = utils.calculate_body_and_doji(tickerData)

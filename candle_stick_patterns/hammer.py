@@ -1,24 +1,6 @@
 import utils
 
 def identify_hammer(tickerData):
-    """Identify Hammer pattern."""
-    # Calculate previous trend (True if decreasing over last 12 days)
-    # tickerData['Trend'] = tickerData['Close'].rolling(window=13).apply(lambda x: x[0] > x[-1])
-
-    # Check if current candle's close is lower than all previous 12 candles
-    # tickerData['Lower Close'] = True
-    # tickerData['Close'].rolling(window=13).apply(lambda x: x[-1] < min(x[:-1]))
-
-    # Check if current candle's open is lower than all previous 12 candles
-    # tickerData['Lower Open'] = tickerData['Open'].rolling(window=13).apply(lambda x: x[-1] < min(x[:-1]))
-
-    # Calculate slope of line between the first and the last candle in window, then ensure it's negative
-    # tickerData['Slope'] = tickerData['Close'].rolling(window=13).apply(lambda x: (x[-1] - x[0])/12)
-    # slope_condition = tickerData['Slope'] < 0
-
-    # # Check that close of all interim candles is not too far from the line
-    # tickerData['Close Distance'] = tickerData['Close'].rolling(window=13).apply(utils.calculate_distance)
-    # close_distance_condition = tickerData['Close Distance'] <= 0.011
 
     downtrend = utils.identify_downtrend(tickerData,1,9,1)
 

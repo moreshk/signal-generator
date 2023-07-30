@@ -17,11 +17,12 @@ def plot_chart(tickerData, selected_pattern=None):
     patterns = ['Hammer', 'Hanging Man', 'Bullish Full Marubozu', 'Bullish Open Marubozu', 'Bullish Close Marubozu', 
                 'Bearish Full Marubozu', 'Bearish Open Marubozu', 'Bearish Close Marubozu', 'Bullish Engulfing', 
                 'Bearish Engulfing', 'Inverted Hammer', 'Piercing Line', 'Bullish Harami', 'Bearish Harami', 
-                'Shooting Star', 'Morning Star', 'Evening Star', 'UP', 'DOWN', 'Morning Doji Star', 'Evening Doji Star']  # Added 'Trend'
+                'Shooting Star', 'Morning Star', 'Evening Star', 'UP', 'DOWN', 'Morning Doji Star', 'Evening Doji Star',
+                'Dark Cloud Cover', 'Tweezer Bottom', 'Tweezer Top']  # Added 'Trend'
 
     symbols = ['star', 'x', 'circle', 'cross', 'diamond', 'square', 'triangle-up', 'triangle-down', 'pentagon', 
             'hexagon', 'y-up', 'y-down', 'octagon', 'star-diamond', 'hourglass', 'bowtie', 'hash', 'arrow-up', 
-            'arrow-down', 'square-dot', 'diamond-dot']  # Added 'plus' for 'Trend'
+            'arrow-down', 'square-dot', 'diamond-dot', 'cross-open', 'hexagram', 'hexagram-open']  # Added 'plus' for 'Trend'
 
     for pattern, symbol in zip(patterns, symbols):
         if "Bearish" in pattern:

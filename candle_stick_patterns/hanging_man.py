@@ -1,23 +1,6 @@
 import utils
 
 def identify_hanging_man(tickerData):
-    """Identify Hanging Man pattern."""
-    # Calculate previous trend (True if increasing over last 12 days)
-    # tickerData['Trend'] = tickerData['Close'].rolling(window=13).apply(lambda x: x[0] < x[-1])
-
-    # # Check if current candle's close is higher than all previous 12 candles
-    # tickerData['Higher Close'] = tickerData['Close'].rolling(window=13).apply(lambda x: x[-1] > max(x[:-1]))
-
-    # # Check if current candle's open is higher than all previous 12 candles
-    # tickerData['Higher Open'] = tickerData['Open'].rolling(window=13).apply(lambda x: x[-1] > max(x[:-1]))
-
-    # # Calculate slope of line between the first and the last candle in window, then ensure it's positive
-    # tickerData['Slope'] = tickerData['Close'].rolling(window=13).apply(lambda x: (x[-1] - x[0])/12)
-    # slope_condition = tickerData['Slope'] > 0
-
-    # # Check that close of all interim candles is not too far from the line
-    # tickerData['Close Distance'] = tickerData['Close'].rolling(window=13).apply(utils.calculate_distance)
-    # close_distance_condition = tickerData['Close Distance'] <= 0.01
 
     uptrend = utils.identify_uptrend(tickerData,1,9,.5)
 

@@ -1,11 +1,5 @@
 import utils
 
-# def identify_downturn(tickerData):
-#     """Identify a downturn, where at least 4 out of the 6 prior candles are bearish."""
-#     bearish = [tickerData['Open'].shift(i) > tickerData['Close'].shift(i) for i in range(3, 9)]
-#     tickerData['Downturn'] = sum(bearish) >= 4
-#     return tickerData
-
 def identify_morning_star(tickerData):
     """Identify Morning Star pattern."""
     tickerData = utils.calculate_body_and_doji(tickerData)

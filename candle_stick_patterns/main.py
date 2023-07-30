@@ -20,6 +20,9 @@ from uptrend_detector import identify_trendup
 from downtrend_detector import identify_trenddown
 from morning_doji_star import identify_morning_doji_star
 from evening_doji_star import identify_evening_doji_star
+from dark_cloud_cover import identify_dark_cloud_cover
+from tweezer_bottom import identify_tweezer_bottom
+from tweezer_top import identify_tweezer_top
 import os
 
 # Define the ticker symbol
@@ -74,5 +77,8 @@ tickerData = identify_trendup(tickerData)
 tickerData = identify_trenddown(tickerData)
 tickerData = identify_morning_doji_star(tickerData)
 tickerData = identify_evening_doji_star(tickerData)
+tickerData = identify_dark_cloud_cover(tickerData)
+tickerData = identify_tweezer_bottom(tickerData)
+tickerData = identify_tweezer_top(tickerData)
 # Plot the chart
 plot_chart(tickerData)
