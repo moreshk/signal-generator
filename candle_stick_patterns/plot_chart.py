@@ -63,14 +63,14 @@ def plot_chart(tickerData, patterns, selected_pattern=None):
         # Add the extended neckline
         x = [tickerData.index[start[0]], tickerData.index[extended_end[0]]]
         y = [start[1], extended_end[1]]
-        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Neckline {i + 1}', visible='legendonly'))
+        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Neckline {i + 1}', visible='legendonly', line=dict(width=4)))
 
         # Add lines connecting the points of the pattern
         x = [tickerData.index[pattern['Left Shoulder'][0]], tickerData.index[start[0]], 
              tickerData.index[pattern['Head'][0]], tickerData.index[end[0]], 
              tickerData.index[pattern['Right Shoulder'][0]], tickerData.index[extended_end[0]]]
         y = [pattern['Left Shoulder'][1], start[1], pattern['Head'][1], end[1], pattern['Right Shoulder'][1], extended_end[1]]
-        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Pattern {i + 1}', visible='legendonly'))
+        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Pattern {i + 1}', visible='legendonly', line=dict(width=4)))
 
     fig.update_layout(
         yaxis_title='Price',
