@@ -23,6 +23,7 @@ from evening_doji_star import identify_evening_doji_star
 from dark_cloud_cover import identify_dark_cloud_cover
 from tweezer_bottom import identify_tweezer_bottom
 from tweezer_top import identify_tweezer_top
+from head_and_shoulders import identify_head_and_shoulders
 import os
 
 # Define the ticker symbol
@@ -80,5 +81,14 @@ tickerData = identify_evening_doji_star(tickerData)
 tickerData = identify_dark_cloud_cover(tickerData)
 tickerData = identify_tweezer_bottom(tickerData)
 tickerData = identify_tweezer_top(tickerData)
+
+# Convert the index to integers for pattern detection
+tickerData.reset_index(drop=True, inplace=True)
+
+patterns = identify_head_and_shoulders(tickerData)
+
+# Convert the index back to dates
+tickerData.set_index('Date', inplace=True)
+
 # Plot the chart
-plot_chart(tickerData)
+plot_chart(tickerData, patterns)
