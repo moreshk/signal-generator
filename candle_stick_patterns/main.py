@@ -24,6 +24,7 @@ from dark_cloud_cover import identify_dark_cloud_cover
 from tweezer_bottom import identify_tweezer_bottom
 from tweezer_top import identify_tweezer_top
 from head_and_shoulders import identify_head_and_shoulders
+from inverted_head_and_shoulders import identify_inverted_head_and_shoulders
 import os
 
 # Define the ticker symbol
@@ -31,6 +32,7 @@ tickerSymbol = '^NSEI'
 
 # Get today's date
 endDate = datetime.now()
+# - timedelta(days=1440) 
 
 # Get the data for the desired period
 startDate = endDate - timedelta(days=720)  # change to your desired period
@@ -86,9 +88,9 @@ tickerData = identify_tweezer_top(tickerData)
 tickerData.reset_index(drop=True, inplace=True)
 
 patterns = identify_head_and_shoulders(tickerData)
+inverted_patterns = identify_inverted_head_and_shoulders(tickerData)
 
-# Convert the index back to dates
 tickerData.set_index('Date', inplace=True)
 
 # Plot the chart
-plot_chart(tickerData, patterns)
+plot_chart(tickerData, patterns, inverted_patterns)

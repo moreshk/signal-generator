@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 import numpy as np
 
-def plot_chart(tickerData, patterns, selected_pattern=None):
+def plot_chart(tickerData, patterns, inverted_patterns, selected_pattern=None):
     """Create a candlestick chart with pattern markers and colored candles."""
     fig = go.Figure()
 
@@ -71,6 +71,64 @@ def plot_chart(tickerData, patterns, selected_pattern=None):
              tickerData.index[pattern['Right Shoulder'][0]], tickerData.index[extended_end[0]]]
         y = [pattern['Left Shoulder'][1], start[1], pattern['Head'][1], end[1], pattern['Right Shoulder'][1], extended_end[1]]
         fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Pattern {i + 1}', visible='legendonly', line=dict(width=4)))
+
+    # Add inverted head and shoulders pattern markers
+    # for i, pattern in enumerate(inverted_patterns):
+    #     # # Add the left shoulder, head, and right shoulder
+    #     # for point in ['Left Shoulder', 'Head', 'Right Shoulder']:
+    #     #     index, price = pattern[point]
+    #     #     fig.add_trace(go.Scatter(x=[tickerData.index[index]], y=[price], mode='markers', name=f'Inverted {point} {i + 1}', visible='legendonly'))
+
+    #     # Add the neckline
+    #     start, end = pattern['Neckline']
+    #     slope = (end[1] - start[1]) / (end[0] - start[0])
+
+    #     # Extend the neckline to the right until it intersects a candlestick
+    #     extended_end = end
+    #     for j in range(end[0] + 1, len(tickerData)):
+    #         extended_price = end[1] + slope * (j - end[0])
+    #         if extended_price <= tickerData['High'][j] and extended_price >= tickerData['Low'][j]:
+    #             extended_end = (j, extended_price)
+    #             break
+
+    #     # Add the extended neckline
+    #     x = [tickerData.index[start[0]], tickerData.index[extended_end[0]]]
+    #     y = [start[1], extended_end[1]]
+    #     fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Inverted Neckline {i + 1}', visible='legendonly', line=dict(width=4)))
+
+    #     # Add lines connecting the points of the pattern
+    #     x = [tickerData.index[pattern['Left Shoulder'][0]], tickerData.index[start[0]], 
+    #          tickerData.index[pattern['Head'][0]], tickerData.index[end[0]], 
+    #          tickerData.index[pattern['Right Shoulder'][0]], tickerData.index[extended_end[0]]]
+    #     y = [pattern['Left Shoulder'][1], start[1], pattern['Head'][1], end[1], pattern['Right Shoulder'][1], extended_end[1]]
+    #     fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Inverted Pattern {i + 1}', visible='legendonly', line=dict(width=4)))
+
+    # Add inverted head and shoulders pattern markers
+    for i, pattern in enumerate(inverted_patterns):
+        # Add the neckline
+        start, end = pattern['Neckline']
+        slope = (end[1] - start[1]) / (end[0] - start[0])
+
+        # Extend the neckline to the right until it intersects a candlestick
+        extended_end = end
+        for j in range(end[0] + 1, len(tickerData)):
+            extended_price = end[1] + slope * (j - end[0])
+            if extended_price >= tickerData['High'][j]:
+                extended_end = (j, extended_price)
+                break
+
+        # Add the extended neckline
+        x = [tickerData.index[start[0]], tickerData.index[extended_end[0]]]
+        y = [start[1], extended_end[1]]
+        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Inverted Neckline {i + 1}', visible='legendonly', line=dict(width=4)))
+
+        # Add lines connecting the points of the pattern
+        x = [tickerData.index[pattern['Left Shoulder'][0]], tickerData.index[start[0]], 
+            tickerData.index[pattern['Head'][0]], tickerData.index[end[0]], 
+            tickerData.index[pattern['Right Shoulder'][0]], tickerData.index[extended_end[0]]]
+        y = [pattern['Left Shoulder'][1], start[1], pattern['Head'][1], end[1], pattern['Right Shoulder'][1], extended_end[1]]
+        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=f'Inverted Pattern {i + 1}', visible='legendonly', line=dict(width=4)))
+
 
     fig.update_layout(
         yaxis_title='Price',
